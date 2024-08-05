@@ -4,9 +4,11 @@ import { UpdateLeadGenerationDto } from './dto/update-lead-generation.dto';
 
 @Injectable()
 export class LeadGenerationService {
-  async create(createLeadGenerationDto: CreateLeadGenerationDto):Promise<String> {
-   console.log("createLeadGenerationDto",createLeadGenerationDto);
-   return "success";
+  async create(
+    createLeadGenerationDto: CreateLeadGenerationDto,
+  ): Promise<string> {
+    console.log('createLeadGenerationDto', createLeadGenerationDto);
+    return 'success';
   }
 
   findAll() {

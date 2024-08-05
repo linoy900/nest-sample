@@ -31,9 +31,11 @@ import { handleException } from '../common/helper/response.helper';
 
 @ApiSecurity('api-key')
 @ApiTags('surveyquestions')
-@Controller({path: 'api/surveyquestions'})
+@Controller({ path: 'api/surveyquestions' })
 export class SurveyquestionsController {
-  constructor(private readonly surveyquestionsService: SurveyquestionsService) {}
+  constructor(
+    private readonly surveyquestionsService: SurveyquestionsService,
+  ) {}
 
   @ApiOperation({ summary: 'List surveyqestions' })
   @HttpCode(200)
@@ -45,19 +47,28 @@ export class SurveyquestionsController {
   @Get()
   findAll(@Query() query: ListSurveyquestionDto, @Request() req) {
     try {
+      console.log('sdsd');
       return {
         statusCode: HttpStatus.OK,
         message: MESSAGES.listSurveyQuestionsSuccess,
         error: '',
-        Data: [{s1:[{answer:["a1","a2","a3"],q:"Q1"},{answer:["a1","a2","a3"],q:"Q2"}]},
-        {s2:[{answer:["a1","a2","a3"],q:"Q3"},{answer:["a1","a2","a3"],q:"Q5"}]}],
+        Data: [
+          {
+            s1: [
+              { answer: ['a1', 'a2', 'a3'], q: 'Q1' },
+              { answer: ['a1', 'a2', 'a3'], q: 'Q2' },
+            ],
+          },
+          {
+            s2: [
+              { answer: ['a1', 'a2', 'a3'], q: 'Q3' },
+              { answer: ['a1', 'a2', 'a3'], q: 'Q5' },
+            ],
+          },
+        ],
       };
     } catch (error) {
       handleException(error);
     }
-   
   }
-
- 
-
 }

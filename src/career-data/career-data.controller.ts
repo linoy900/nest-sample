@@ -12,7 +12,7 @@ import {
   HttpStatus,
   Request,
   HttpCode,
-  Version
+  Version,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -30,7 +30,7 @@ import { handleException } from '../common/helper/response.helper';
 
 @ApiSecurity('api-key')
 @ApiTags('career-data')
-@Controller({path:'api/career-data'})
+@Controller({ path: 'api/career-data' })
 export class CareerDataController {
   constructor(private readonly careerDataService: CareerDataService) {}
 
@@ -48,18 +48,28 @@ export class CareerDataController {
         statusCode: HttpStatus.OK,
         message: MESSAGES.listCareerDataSuccess,
         error: '',
-        Data: [{s1:[{answer:["a1","a2","a3"],q:"Q1"},{answer:["a1","a2","a3"],q:"Q2"}]},
-        {s2:[{answer:["a1","a2","a3"],q:"Q3"},{answer:["a1","a2","a3"],q:"Q5"}]}],
+        Data: [
+          {
+            s1: [
+              { answer: ['a1', 'a2', 'a3'], q: 'Q1' },
+              { answer: ['a1', 'a2', 'a3'], q: 'Q2' },
+            ],
+          },
+          {
+            s2: [
+              { answer: ['a1', 'a2', 'a3'], q: 'Q3' },
+              { answer: ['a1', 'a2', 'a3'], q: 'Q5' },
+            ],
+          },
+        ],
       };
     } catch (error) {
       handleException(error);
     }
-    
   }
   @Version('1')
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.careerDataService.findOne(+id);
   }
-
 }
