@@ -22,17 +22,18 @@ import {
   ApiSecurity,
   ApiBody,
 } from '@nestjs/swagger';
-import { CareerDataService } from './career-data.service';
-import { CreateCareerDataDto } from './dto/create-career-data.dto';
-import { UpdateCareerDataDto } from './dto/update-career-data.dto';
-import { MESSAGES } from '../common/messages/en/careerdata.messages';
+import { MESSAGES } from '../common/messages/en/surveyquestions.messages';
+import { SurveyquestionsService } from './surveyquestions.service';
+import { ListSurveyquestionDto } from './dto/list-surveyquestion.dto';
 import { handleException } from '../common/helper/response.helper';
 
 @ApiSecurity('api-key')
-@ApiTags('career-data')
-@Controller({ path: 'api/career-data' })
-export class CareerDataController {
-  constructor(private readonly careerDataService: CareerDataService) {}
+@ApiTags('surveyquestions')
+@Controller({ path: 'api/surveyquestions' })
+export class SurveyquestionsController {
+  constructor(
+    private readonly surveyquestionsService: SurveyquestionsService,
+  ) {}
 
   @ApiOperation({ summary: 'List surveyqestions' })
   @HttpCode(200)
@@ -42,11 +43,12 @@ export class CareerDataController {
   })
   @Version('1')
   @Get()
-  findAll() {
+  findAll(@Query() query: ListSurveyquestionDto, @Request() req) {
     try {
+      console.log('sdsd');
       return {
         statusCode: HttpStatus.OK,
-        message: MESSAGES.listCareerDataSuccess,
+        message: MESSAGES.listSurveyQuestionsSuccess,
         error: '',
         Data: [
           {
@@ -66,10 +68,5 @@ export class CareerDataController {
     } catch (error) {
       handleException(error);
     }
-  }
-  @Version('1')
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.careerDataService.findOne(+id);
   }
 }
